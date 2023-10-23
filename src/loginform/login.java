@@ -13,7 +13,9 @@ import registerform.register;
  * @author 63966
  */
 public class login extends javax.swing.JFrame {
-
+        // declare variables to store X and Y coordinate values
+    
+    int positionX = 0, positionY = 0;
     /**
      * Creates new form login
      */
@@ -45,11 +47,26 @@ public class login extends javax.swing.JFrame {
         jLabel7HyperlinkSignup = new javax.swing.JLabel();
         jLabel8Close = new javax.swing.JLabel();
         jLabel9Min = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2HyperlinkSignUp.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2HyperlinkSignUp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -122,47 +139,77 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 44, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel2HyperlinkSignUpLayout = new javax.swing.GroupLayout(jPanel2HyperlinkSignUp);
         jPanel2HyperlinkSignUp.setLayout(jPanel2HyperlinkSignUpLayout);
         jPanel2HyperlinkSignUpLayout.setHorizontalGroup(
             jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2HyperlinkSignUpLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel2HyperlinkSignUpLayout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
-                        .addComponent(jLabel5))
-                    .addComponent(jPasswordField1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2HyperlinkSignUpLayout.createSequentialGroup()
-                .addGap(92, 192, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9Min)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8Close)
+                .addGap(19, 19, 19))
+            .addGroup(jPanel2HyperlinkSignUpLayout.createSequentialGroup()
+                .addGap(103, 103, 103)
                 .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2HyperlinkSignUpLayout.createSequentialGroup()
+                            .addComponent(jCheckBox1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5))
+                        .addComponent(jPasswordField1)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField1)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2HyperlinkSignUpLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7HyperlinkSignup)
-                        .addGap(160, 160, 160))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2HyperlinkSignUpLayout.createSequentialGroup()
-                        .addComponent(jLabel9Min)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8Close)
-                        .addGap(19, 19, 19))))
+                        .addGap(53, 53, 53)))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel2HyperlinkSignUpLayout.setVerticalGroup(
             jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2HyperlinkSignUpLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8Close)
-                    .addComponent(jLabel9Min))
-                .addGap(36, 36, 36)
+                .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2HyperlinkSignUpLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8Close)
+                            .addComponent(jLabel9Min)))
+                    .addGroup(jPanel2HyperlinkSignUpLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -184,8 +231,10 @@ public class login extends javax.swing.JFrame {
                 .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7HyperlinkSignup))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel2HyperlinkSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, 500));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -205,20 +254,7 @@ public class login extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2HyperlinkSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel2HyperlinkSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -253,6 +289,36 @@ public class login extends javax.swing.JFrame {
         // Close or hide the current form if necessary
         this.dispose(); // Close the current form
     }//GEN-LAST:event_jLabel7HyperlinkSignupMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        // JFrame MouseListener Event - Mouse Pressed
+        // Get X and Y coordinate values
+        positionX = evt.getX();
+        positionY = evt.getY();    
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // JFrame MouseMotionListener -> MouseDragged
+        //set JFrame Location
+        setLocation(evt.getXOnScreen()-positionX, evt.getYOnScreen()-positionY);
+    }//GEN-LAST:event_formMouseDragged
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        // JFrame MouseListener Event - Mouse Pressed
+        // Get X and Y coordinate values
+        positionX = evt.getX();
+        positionY = evt.getY(); 
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        // JFrame MouseMotionListener -> MouseDragged
+        //set JFrame Location
+        setLocation(evt.getXOnScreen()-positionX, evt.getYOnScreen()-positionY);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments
@@ -303,6 +369,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8Close;
     private javax.swing.JLabel jLabel9Min;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel2HyperlinkSignUp;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;

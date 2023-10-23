@@ -32,6 +32,7 @@ public class register extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1left = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2right = new javax.swing.JPanel();
         jLabel1Close = new javax.swing.JLabel();
         jLabel2Min = new javax.swing.JLabel();
@@ -55,6 +56,7 @@ public class register extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jPasswordField2 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        MovePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -62,18 +64,21 @@ public class register extends javax.swing.JFrame {
 
         jPanel1left.setBackground(new java.awt.Color(121, 6, 186));
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/v2osk-In4XVKhYaiI-unsplash.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+
         javax.swing.GroupLayout jPanel1leftLayout = new javax.swing.GroupLayout(jPanel1left);
         jPanel1left.setLayout(jPanel1leftLayout);
         jPanel1leftLayout.setHorizontalGroup(
             jPanel1leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, Short.MAX_VALUE)
         );
         jPanel1leftLayout.setVerticalGroup(
             jPanel1leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 499, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1left, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1left, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, -1));
 
         jPanel2right.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2right.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,18 +169,43 @@ public class register extends javax.swing.JFrame {
         jButton1.setText("Signup");
         jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        MovePanel.setBackground(new java.awt.Color(255, 255, 255));
+        MovePanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                MovePanelMouseDragged(evt);
+            }
+        });
+        MovePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MovePanelMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout MovePanelLayout = new javax.swing.GroupLayout(MovePanel);
+        MovePanel.setLayout(MovePanelLayout);
+        MovePanelLayout.setHorizontalGroup(
+            MovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        MovePanelLayout.setVerticalGroup(
+            MovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 45, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel2rightLayout = new javax.swing.GroupLayout(jPanel2right);
         jPanel2right.setLayout(jPanel2rightLayout);
         jPanel2rightLayout.setHorizontalGroup(
             jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2rightLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(MovePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2Min)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1Close)
                 .addGap(21, 21, 21))
-            .addGroup(jPanel2rightLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2rightLayout.createSequentialGroup()
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6)
                     .addGroup(jPanel2rightLayout.createSequentialGroup()
@@ -206,25 +236,28 @@ public class register extends javax.swing.JFrame {
                             .addComponent(jTextField5)
                             .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGap(52, 52, 52))
         );
         jPanel2rightLayout.setVerticalGroup(
             jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2rightLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1Close)
-                    .addComponent(jLabel2Min))
-                .addGap(36, 36, 36)
+                .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2rightLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1Close)
+                            .addComponent(jLabel2Min)))
+                    .addComponent(MovePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3HyperlinkSignin))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,8 +287,8 @@ public class register extends javax.swing.JFrame {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2right, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 500, 500));
@@ -290,6 +323,22 @@ public class register extends javax.swing.JFrame {
         this.dispose(); // Close the current form
     }//GEN-LAST:event_jLabel3HyperlinkSigninMouseClicked
 
+    private int xMouse,yMouse;
+    
+    private void MovePanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MovePanelMousePressed
+        // JFrame MouseListener Event - Mouse Pressed
+        // Get X and Y coordinate values
+        xMouse = evt.getX();
+        yMouse = evt.getY();   
+    }//GEN-LAST:event_MovePanelMousePressed
+
+    private void MovePanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MovePanelMouseDragged
+        int x=evt.getXOnScreen();
+        int y=evt.getYOnScreen();
+        setLocation(x-xMouse,y-yMouse);
+    }//GEN-LAST:event_MovePanelMouseDragged
+
+    
     /**
      * @param args the command line arguments
      */
@@ -326,6 +375,7 @@ public class register extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel MovePanel;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -334,6 +384,7 @@ public class register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1Close;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel2Min;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel3HyperlinkSignin;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
