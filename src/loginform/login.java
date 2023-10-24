@@ -5,11 +5,21 @@
 package loginform;
 
 import java.awt.Color;
-import java.sql.PreparedStatement;
-import java.awt.event.MouseEvent;
+import java.awt.event.MouseEvent; // Corrected import
+import java.util.logging.Logger; // Corrected import
+import java.util.logging.Level; // Corrected import
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import menuform.menu;
 import registerform.register;
+import loginform.My_CNX;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 /**
  *
@@ -29,7 +39,26 @@ public class login extends javax.swing.JFrame {
         // Open XAMPP - Start Apache & MySQL
         
         initComponents();
+        
+        // Center the form
         this.setLocationRelativeTo(null);
+        
+        // Create the existing border
+        Border field_border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
+
+        // Define the padding size (e.g., 5 pixels)
+        int paddingSize = 5;
+
+        // Create a CompoundBorder to add padding to the existing border
+        Border paddedBorder = BorderFactory.createCompoundBorder(
+            field_border,
+            BorderFactory.createEmptyBorder(paddingSize, paddingSize, paddingSize, paddingSize)
+        );
+
+        // Apply the padded border to jTextField_Username and jPasswordField
+        jTextField_Username.setBorder(paddedBorder);
+        jPasswordField.setBorder(paddedBorder);
+
     }
 
     /**
@@ -100,6 +129,11 @@ public class login extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField_UsernameFocusLost(evt);
+            }
+        });
+        jTextField_Username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_UsernameActionPerformed(evt);
             }
         });
 
@@ -374,7 +408,7 @@ public class login extends javax.swing.JFrame {
             jTextField_Username.setText("Enter your username");
             jTextField_Username.setForeground(new Color(153,153,153));
         }
-        
+ 
     }//GEN-LAST:event_jTextField_UsernameFocusLost
 
     private void jPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFieldFocusGained
@@ -408,13 +442,51 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordFieldFocusLost
 
     private void jButton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoginActionPerformed
-        
+                                                    
         PreparedStatement st;
         ResultSet rs;
         
         // get the username & password
+        String username = jTextField_Username.getText();
+        String password = String.valueOf(jPasswordField.getPassword());
+        
+        // create select query to check if the username and the password exist in the database
+        String query = "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
+        
+        try {
+            st = My_CNX.getConnection().prepareStatement(query);
             
+            
+            st.setString(1, username);
+            st.setString(2, password);
+            rs = st.executeQuery();
+            
+            if(rs.next())
+            {
+                // show a new form
+                menu form = new menu();
+                form.setVisible(true);
+                form.pack();
+                form.setLocationRelativeTo(null);
+                // close the current form(login form)
+                this.dispose();
+               
+            }else {
+                // error message
+                JOptionPane.showMessageDialog(null, "Invalid Username / Password", "Login Error", 2);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
     }//GEN-LAST:event_jButton_LoginActionPerformed
+
+    private void jTextField_UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_UsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_UsernameActionPerformed
+
+
 
     /**
      * @param args the command line arguments
