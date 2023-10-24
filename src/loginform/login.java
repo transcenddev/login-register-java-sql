@@ -4,8 +4,11 @@
  */
 package loginform;
 
+import java.awt.Color;
+import java.sql.PreparedStatement;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import registerform.register;
 
 /**
@@ -13,13 +16,18 @@ import registerform.register;
  * @author 63966
  */
 public class login extends javax.swing.JFrame {
-        // declare variables to store X and Y coordinate values
+    
     
     int positionX = 0, positionY = 0;
     /**
      * Creates new form login
      */
     public login() {
+        
+        /* Download the connector for JAVA to MySQL Data */
+        /* https://dev.mysql.com/downloads/connector/j/ */
+        // Open XAMPP - Start Apache & MySQL
+        
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -37,12 +45,12 @@ public class login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextField_Username = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField = new javax.swing.JPasswordField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton_Login = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7HyperlinkSignup = new javax.swing.JLabel();
         jLabel8Close = new javax.swing.JLabel();
@@ -84,12 +92,30 @@ public class login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
         jLabel3.setText("Username");
 
-        jTextField1.setText("johndoe3310");
+        jTextField_Username.setForeground(new java.awt.Color(153, 153, 153));
+        jTextField_Username.setText("username");
+        jTextField_Username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_UsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_UsernameFocusLost(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
         jLabel4.setText("Password");
 
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField.setForeground(new java.awt.Color(153, 153, 153));
+        jPasswordField.setText("password");
+        jPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordFieldFocusLost(evt);
+            }
+        });
 
         jCheckBox1.setFont(new java.awt.Font("Inter", 0, 10)); // NOI18N
         jCheckBox1.setText("Remember me");
@@ -102,11 +128,16 @@ public class login extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Inter", 0, 10)); // NOI18N
         jLabel5.setText("Forgot Password");
 
-        jButton1.setBackground(new java.awt.Color(121, 6, 186));
-        jButton1.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Signin");
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton_Login.setBackground(new java.awt.Color(121, 6, 186));
+        jButton_Login.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        jButton_Login.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Login.setText("Signin");
+        jButton_Login.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton_Login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_LoginActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         jLabel6.setText("Don't have an account?");
@@ -182,13 +213,13 @@ public class login extends javax.swing.JFrame {
                             .addComponent(jCheckBox1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5))
-                        .addComponent(jPasswordField1)
+                        .addComponent(jPasswordField)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField1)
+                        .addComponent(jTextField_Username)
                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2HyperlinkSignUpLayout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jLabel6)
@@ -216,17 +247,17 @@ public class login extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox1)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2HyperlinkSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -320,6 +351,71 @@ public class login extends javax.swing.JFrame {
         setLocation(evt.getXOnScreen()-positionX, evt.getYOnScreen()-positionY);
     }//GEN-LAST:event_jPanel2MouseDragged
 
+    private void jTextField_UsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_UsernameFocusGained
+       
+        // clear the etxtfield on focus if the text is "username"
+        if(jTextField_Username.getText().trim().toLowerCase().equals("username"))
+        {
+            jTextField_Username.setText("");
+            jTextField_Username.setForeground(Color.black);
+        }
+                
+    }//GEN-LAST:event_jTextField_UsernameFocusGained
+
+    private void jTextField_UsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_UsernameFocusLost
+         
+        // if the text field is equal to username or empty
+        //we will set the "username" text in the text field
+        // on focus lost event
+        
+        if(jTextField_Username.getText().trim().equals("") || 
+           jTextField_Username.getText().trim().toLowerCase().equals("username")) 
+        {
+            jTextField_Username.setText("Enter your username");
+            jTextField_Username.setForeground(new Color(153,153,153));
+        }
+        
+    }//GEN-LAST:event_jTextField_UsernameFocusLost
+
+    private void jPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFieldFocusGained
+        
+        // clear the password field on focus if the text is "username"
+        
+        String pass = String.valueOf(jPasswordField.getPassword());
+        
+        if(pass.trim().toLowerCase().equals("password"))
+        {
+            jPasswordField.setText("");
+            jPasswordField.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_jPasswordFieldFocusGained
+
+    private void jPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFieldFocusLost
+        
+        // if the text field is equal to password or empty
+        //we will set the "password" text in the text field 
+        // on focus lost event
+        
+        String pass = String.valueOf(jPasswordField.getPassword());
+                
+        if(pass.trim().equals("password") || 
+           pass.trim().toLowerCase().equals("password")) 
+        {
+            jPasswordField.setText("Enter your password");
+            jPasswordField.setForeground(new Color(153,153,153));
+        }
+        
+    }//GEN-LAST:event_jPasswordFieldFocusLost
+
+    private void jButton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoginActionPerformed
+        
+        PreparedStatement st;
+        ResultSet rs;
+        
+        // get the username & password
+            
+    }//GEN-LAST:event_jButton_LoginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -356,7 +452,7 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton_Login;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -371,7 +467,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel2HyperlinkSignUp;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jPasswordField;
+    private javax.swing.JTextField jTextField_Username;
     // End of variables declaration//GEN-END:variables
 }
