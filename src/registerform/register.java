@@ -6,8 +6,8 @@ package registerform;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.util.logging.Logger; // Corrected import
-import java.util.logging.Level; // Corrected import
+import java.util.logging.Logger; 
+import java.util.logging.Level; 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -179,6 +179,11 @@ public class register extends javax.swing.JFrame {
 
         jTextField_FirstName.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         jTextField_FirstName.setText("John");
+        jTextField_FirstName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_FirstNameActionPerformed(evt);
+            }
+        });
 
         jTextField_LastName.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         jTextField_LastName.setText("Doe");
@@ -249,7 +254,7 @@ public class register extends javax.swing.JFrame {
         MovePanel.setLayout(MovePanelLayout);
         MovePanelLayout.setHorizontalGroup(
             MovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 431, Short.MAX_VALUE)
         );
         MovePanelLayout.setVerticalGroup(
             MovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,8 +290,16 @@ public class register extends javax.swing.JFrame {
         jPanel2right.setLayout(jPanel2rightLayout);
         jPanel2rightLayout.setHorizontalGroup(
             jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2rightLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2rightLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MovePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2Min)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1Close)
+                .addGap(21, 21, 21))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2rightLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2rightLayout.createSequentialGroup()
@@ -329,15 +342,7 @@ public class register extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jTextField_LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))))
-                .addContainerGap(52, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2rightLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MovePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2Min)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1Close)
-                .addGap(21, 21, 21))
+                .addGap(54, 54, 54))
         );
         jPanel2rightLayout.setVerticalGroup(
             jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +354,7 @@ public class register extends javax.swing.JFrame {
                             .addComponent(jLabel1Close)
                             .addComponent(jLabel2Min)))
                     .addComponent(MovePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -398,7 +403,7 @@ public class register extends javax.swing.JFrame {
                     .addComponent(jPasswordField_2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton_Register, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2right, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 500, 530));
@@ -527,6 +532,10 @@ public class register extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_RegisterActionPerformed
 
+    private void jTextField_FirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FirstNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_FirstNameActionPerformed
+
     public boolean verifyFields() {
     boolean isValid = true; // Assume all fields are valid initially
 
@@ -602,8 +611,7 @@ public class register extends javax.swing.JFrame {
             Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return username_exist;
-        
+        return username_exist;    
     }
 
 

@@ -453,7 +453,16 @@ public class login extends javax.swing.JFrame {
         // create select query to check if the username and the password exist in the database
         String query = "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
         
-        try {
+        if(username.trim().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Enter your Username", "Empty Username", 2);
+        }     
+        else if (password.trim().isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(null, "Enter your Password", "Empty Password", JOptionPane.WARNING_MESSAGE);
+        }
+        else {
+            try {
             st = My_CNX.getConnection().prepareStatement(query);
             
             
@@ -479,7 +488,7 @@ public class login extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
+      }                  
     }//GEN-LAST:event_jButton_LoginActionPerformed
 
     private void jTextField_UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_UsernameActionPerformed
