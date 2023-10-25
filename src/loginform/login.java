@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import menuform.menu;
+import home.home;
 import registerform.register;
 import loginform.My_CNX;
 import java.sql.PreparedStatement;
@@ -473,7 +473,7 @@ public class login extends javax.swing.JFrame {
             if(rs.next())
             {
                 // show a new form
-                menu form = new menu();
+                home form = new home();
                 form.setVisible(true);
                 form.pack();
                 form.setLocationRelativeTo(null);
