@@ -1,30 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package usermanagement;
 
-import com.mysql.cj.xdevapi.Statement;
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.awt.Color;
+import static java.nio.file.Files.list;
 import java.util.ArrayList;
+import static java.util.Collections.list;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.border.Border;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import java.sql.DriverManager;
+import static java.util.Collections.list;
 
-/**
- *
- * @author 63966
- */
 public class AccountManagement extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AccountManagement
-     */
+    
     public AccountManagement() {
         initComponents();
         this.setLocationRelativeTo(null); // center the form
         
+        // Populate the JTable with user data
+        Show_Users_In_JTable();
+      
         // Create the existing border
         Border field_border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black);
 
@@ -52,43 +53,69 @@ public class AccountManagement extends javax.swing.JFrame {
  
         bg.add(jRadioButton_Male);
         bg.add(jRadioButton_Female);
-
     }
     
-    public Connection getConnection()
-    {
+    public Connection getConnection() {
         Connection con;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost/test_db", root,"")
+            con = DriverManager.getConnection("jdbc:mysql://localhost/users_db", "root", "");
             return con;
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
     
-    public ArrayList<User> userList() 
+    public ArrayList<User> getUsersList() 
     {
-        ArrayList<User> userList = new ArrayList<User>();
+        ArrayList<User> usersList = new ArrayList<User>();
         Connection connection = getConnection();
+          
         String query = "SELECT * FROM `users` ";
         Statement st;
         ResultSet rs;
         
         try {
-            st = connection.createStatement();
+            st = connection.createStatement();  
             rs = st.executeQuery(query);
             User user;
             while(rs.next())
             {
-                user = new User(rs.getInt(""), rs.getString("firstname"), rs.getString("lastname"), rs.getString("firstname"), rs.getString("phonenum") )
+                user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("gender"), rs.getString("phonenum"), rs.getString("country"), rs.getString("email"), rs.getString("birthdate"));
+                usersList.add(user);
             }
-        } catch(Exception e) {
-            
+        } catch(SQLException e) {
+            e.printStackTrace();
         }
+        return usersList;
     }
     
+    
+    // Display Data In JTable
+    
+    // Display Data In JTable
+    public void Show_Users_In_JTable() 
+    {
+        ArrayList<User> list = getUsersList();
+        DefaultTableModel model = (DefaultTableModel) jTable_Display_Users.getModel();
+        Object[] row = new Object[10];
+        
+        for (int i = 0; i < list.size(); i++) {
+            row[0] = list.get(i).getId();
+            row[1] = list.get(i).getFirstName();
+            row[2] = list.get(i).getLastName();
+            row[3] = list.get(i).getGender();
+            row[4] = list.get(i).getPhoneNum();
+            row[5] = list.get(i).getBirthdate();
+            row[6] = list.get(i).getCountry();
+            row[7] = list.get(i).getEmail();
+            row[8] = list.get(i).getUsername();
+            row[9] = list.get(i).getPassword();
 
+            model.addRow(row);
+        }
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,7 +154,7 @@ public class AccountManagement extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_Display_Users = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -333,10 +360,8 @@ public class AccountManagement extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_Display_Users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
             },
@@ -344,7 +369,7 @@ public class AccountManagement extends javax.swing.JFrame {
                 "Id", "First Name", "Last Name", "Gender", "Phone No.", "Birth Date", "Email", "Password"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable_Display_Users);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -352,8 +377,8 @@ public class AccountManagement extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,7 +388,7 @@ public class AccountManagement extends javax.swing.JFrame {
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 700, 560));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 760, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -384,33 +409,12 @@ public class AccountManagement extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AccountManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AccountManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AccountManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AccountManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AccountManagement().setVisible(true);
+                AccountManagement accountManagement = new AccountManagement();
+                accountManagement.setVisible(true);
             }
         });
     }
@@ -438,7 +442,7 @@ public class AccountManagement extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton_Female;
     private javax.swing.JRadioButton jRadioButton_Male;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable_Display_Users;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField_Country;
     private javax.swing.JTextField jTextField_Email;
@@ -447,4 +451,8 @@ public class AccountManagement extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_PhoneNum;
     private javax.swing.JTextField jTextField_Username;
     // End of variables declaration//GEN-END:variables
+
+    private void setLocatiJonRelativeTo(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
