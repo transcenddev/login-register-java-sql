@@ -122,8 +122,8 @@ public class AccountManagement extends javax.swing.JFrame {
             row[2] = list.get(i).getLastName();
             row[3] = list.get(i).getGender();
             row[4] = list.get(i).getPhoneNum();
-            row[5] = list.get(i).getBirthdate();
-            row[6] = list.get(i).getCountry();
+            row[5] = list.get(i).getCountry();
+            row[6] = list.get(i).getBirthdate();
             row[7] = list.get(i).getEmail();
             row[8] = list.get(i).getUsername();
             row[9] = list.get(i).getPassword();
@@ -448,15 +448,25 @@ public class AccountManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_PhoneNumActionPerformed
 
     private void jButton_InsertActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_InsertActionPerformedActionPerformed
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust the format to match your database format
+        String birthdate = dateFormat.format(jDateChooser_BirthDate.getDate());
+
         String gender = (jRadioButton_Male.isSelected()) ? "Male" : "Female";
+
         String query = "INSERT INTO `users` (`username`, `password`, `firstname`, `lastname`, `gender`, `phonenum`, `country`, `email`, `birthdate`) " +
-              "VALUES ('" + jTextField_Username.getText() + "', '" + new String(jPasswordField.getPassword()) + "', '" + jTextField_FirstName.getText() + "', '" +
-              jTextField_LastName.getText() + "', '" + gender + "', '" + jTextField_PhoneNum.getText() + "', '" + jTextField_Country.getText() + "', '" +
-              jTextField_Email.getText() + "', '[value-8]', '" + gender + "')";
+                      "VALUES ('" + jTextField_Username.getText() + "', '" + new String(jPasswordField.getPassword()) + "', '" + jTextField_FirstName.getText() + "', '" +
+                      jTextField_LastName.getText() + "', '" + gender + "', '" + jTextField_PhoneNum.getText() + "', '" + jTextField_Country.getText() + "', '" +
+                      jTextField_Email.getText() + "', '" + birthdate + "')";
     }//GEN-LAST:event_jButton_InsertActionPerformedActionPerformed
 
     private void jButton_UpdateActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UpdateActionPerformedActionPerformed
         String gender = (jRadioButton_Male.isSelected()) ? "Male" : "Female";
+        
+         // Format the birthdate to match the database format (adjust the format as needed)
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String birthdate = dateFormat.format(jDateChooser_BirthDate.getDate());
+
+        
         String query = "UPDATE `users` SET " +
                    "`username` = '" + jTextField_Username.getText() + "', " +
                    "`password` = '" + new String(jPasswordField.getPassword()) + "', " +
@@ -466,11 +476,15 @@ public class AccountManagement extends javax.swing.JFrame {
                    "`phonenum` = '" + jTextField_PhoneNum.getText() + "', " +
                    "`country` = '" + jTextField_Country.getText() + "', " +
                    "`email` = '" + jTextField_Email.getText() + "', " +
-                   "`birthdate` = '" + gender + "' " +
+                   "`birthdate` = '" + birthdate + "' " +
                    "WHERE 1";
     }//GEN-LAST:event_jButton_UpdateActionPerformedActionPerformed
-
+    
+    
+    
     int genderColumnIndex = 3; // Replace with the actual index of the gender column
+    int birthdateColumnIndex = 6; // Replace with the actual index of the birthdate column
+
 
     private void jTable_Display_UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_Display_UsersMouseClicked
         // Display Selected Row in JTextFields
@@ -481,14 +495,14 @@ public class AccountManagement extends javax.swing.JFrame {
         jTextField_FirstName.setText(model.getValueAt(selectedRow, 1).toString());
         jTextField_LastName.setText(model.getValueAt(selectedRow, 2).toString());
         jTextField_PhoneNum.setText(model.getValueAt(selectedRow, 4).toString());
-        jTextField_Country.setText(model.getValueAt(selectedRow, 6).toString());
+        jTextField_Country.setText(model.getValueAt(selectedRow, 5).toString());
         jTextField_Email.setText(model.getValueAt(selectedRow, 7).toString());
         jTextField_Username.setText(model.getValueAt(selectedRow, 8).toString());
         jPasswordField.setText(model.getValueAt(selectedRow, 9).toString());
         
         // Retrieve gender information from the model
         String gender = model.getValueAt(selectedRow, genderColumnIndex).toString();
-
+        
         // Set the appropriate radio button as selected
         if ("Male".equals(gender)) {
             jRadioButton_Male.setSelected(true);
@@ -501,6 +515,21 @@ public class AccountManagement extends javax.swing.JFrame {
             jRadioButton_Male.setSelected(false);
             jRadioButton_Female.setSelected(false);
         }
+        
+        String birthdateString = model.getValueAt(selectedRow, birthdateColumnIndex).toString();
+
+        // Convert the birthdateString to a Date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust the date format as needed
+        Date birthdate = null;
+
+        try {
+            birthdate = dateFormat.parse(birthdateString);
+        } catch (ParseException ex) {
+            // Handle the parsing exception, e.g., show an error message or use a default date
+            ex.printStackTrace();
+        }
+
+        jDateChooser_BirthDate.setDate(birthdate);
 
     }//GEN-LAST:event_jTable_Display_UsersMouseClicked
 
