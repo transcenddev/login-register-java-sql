@@ -453,10 +453,12 @@ public class AccountManagement extends javax.swing.JFrame {
 
         String gender = (jRadioButton_Male.isSelected()) ? "Male" : "Female";
 
-        String query = "INSERT INTO `users` (`username`, `password`, `firstname`, `lastname`, `gender`, `phonenum`, `country`, `email`, `birthdate`) " +
-                      "VALUES ('" + jTextField_Username.getText() + "', '" + new String(jPasswordField.getPassword()) + "', '" + jTextField_FirstName.getText() + "', '" +
-                      jTextField_LastName.getText() + "', '" + gender + "', '" + jTextField_PhoneNum.getText() + "', '" + jTextField_Country.getText() + "', '" +
-                      jTextField_Email.getText() + "', '" + birthdate + "')";
+        String query = "INSERT INTO `users` (`username`, `password`, `firstname`, `lastname`, `gender`, `phonenum`, `country`, `email`, `birthdate`) " +  
+               "VALUES ('" + jTextField_Username.getText() + "', '" + new String(jPasswordField.getPassword()) + "', '" + jTextField_FirstName.getText() + "', '" +  
+               jTextField_LastName.getText() + "', '" + gender + "', '" + jTextField_PhoneNum.getText() + "', '" + jTextField_Country.getText() + "', '" +  
+               jTextField_Email.getText() + "', '" + birthdate + "')"; 
+        
+        
     }//GEN-LAST:event_jButton_InsertActionPerformedActionPerformed
 
     private void jButton_UpdateActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UpdateActionPerformedActionPerformed
@@ -477,7 +479,7 @@ public class AccountManagement extends javax.swing.JFrame {
                    "`country` = '" + jTextField_Country.getText() + "', " +
                    "`email` = '" + jTextField_Email.getText() + "', " +
                    "`birthdate` = '" + birthdate + "' " +
-                   "WHERE 1";
+                   "WHERE `id` = " + jTextField_Id.getText();
     }//GEN-LAST:event_jButton_UpdateActionPerformedActionPerformed
     
     

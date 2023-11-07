@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import home.home;
 import registerform.register;
 import loginform.My_CNX;
 import java.sql.PreparedStatement;
@@ -20,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+import usermanagement.AccountManagement;
 
 /**
  *
@@ -473,7 +473,7 @@ public class login extends javax.swing.JFrame {
             if(rs.next())
             {
                 // show a new form
-                home form = new home();
+                AccountManagement form = new AccountManagement();
                 form.setVisible(true);
                 form.pack();
                 form.setLocationRelativeTo(null);
