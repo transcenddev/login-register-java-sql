@@ -3,6 +3,8 @@ package usermanagement;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.awt.Color;
+import java.awt.Frame;
+import java.awt.event.MouseEvent;
 import static java.nio.file.Files.list;
 import java.util.ArrayList;
 import static java.util.Collections.list;
@@ -21,8 +23,10 @@ import java.text.SimpleDateFormat;
 import static java.util.Collections.list;
 import java.util.Date;
 import javax.swing.ButtonModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
 
@@ -135,20 +139,18 @@ public class AccountManagement extends javax.swing.JFrame {
     // Execute The SQL Query
     public void executeSQLQuery(String query, String message)
     {
+//       
         Connection con = getConnection();
         Statement st;
         try {
             st = con.createStatement();
-            if(st.executeUpdate(query) == 1)
-            {
-                // refresh jtable data
-                DefaultTableModel model = (DefaultTableModel)jTable_Display_Users.getModel();
+            if (st.executeUpdate(query) == 1) {
+                DefaultTableModel model = (DefaultTableModel) jTable_Display_Users.getModel();
                 model.setRowCount(0);
-                Show_Users_In_JTable(); // Populate the JTable with user data 
-                
-                JOptionPane.showMessageDialog(null, "Data " +message+" Successfully");
-            }else{
-                JOptionPane.showMessageDialog(null, "Data Not" +message);
+                Show_Users_In_JTable();
+                JOptionPane.showMessageDialog(null, "Data " + message + " Successfully");
+            } else {
+                JOptionPane.showMessageDialog(null, "Data Not " + message);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -195,15 +197,18 @@ public class AccountManagement extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_Display_Users = new javax.swing.JTable();
+        jLabel12_CloseButton = new javax.swing.JLabel();
+        jLabel13Min = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        jLabel1.setText("ID");
+        jLabel1.setText("ID Number");
 
         jLabel2.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         jLabel2.setText("First Name");
@@ -268,7 +273,7 @@ public class AccountManagement extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Inter", 1, 24)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Inter", 1, 36)); // NOI18N
         jLabel11.setText("Account Management");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -331,9 +336,9 @@ public class AccountManagement extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel11)
-                .addGap(31, 31, 31)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -380,30 +385,22 @@ public class AccountManagement extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField_Username)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_InsertActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_UpdateActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_DeleteActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
 
         jTable_Display_Users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -421,24 +418,59 @@ public class AccountManagement extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable_Display_Users);
 
+        jLabel12_CloseButton.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
+        jLabel12_CloseButton.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel12_CloseButton.setText("X");
+
+        jLabel13Min.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        jLabel13Min.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel13Min.setText("—");
+        jLabel13Min.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MinMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel13Min)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12_CloseButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12_CloseButton)
+                    .addComponent(jLabel13Min))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 760, 560));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -446,29 +478,38 @@ public class AccountManagement extends javax.swing.JFrame {
     private void jTextField_PhoneNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_PhoneNumActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_PhoneNumActionPerformed
-
+//
     private void jButton_InsertActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_InsertActionPerformedActionPerformed
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust the format to match your database format
-        String birthdate = dateFormat.format(jDateChooser_BirthDate.getDate());
+            String birthdate = dateFormat.format(jDateChooser_BirthDate.getDate());
 
-        String gender = (jRadioButton_Male.isSelected()) ? "Male" : "Female";
+            String gender = (jRadioButton_Male.isSelected()) ? "Male" : "Female";
 
-        String query = "INSERT INTO `users` (`username`, `password`, `firstname`, `lastname`, `gender`, `phonenum`, `country`, `email`, `birthdate`) " +  
-               "VALUES ('" + jTextField_Username.getText() + "', '" + new String(jPasswordField.getPassword()) + "', '" + jTextField_FirstName.getText() + "', '" +  
-               jTextField_LastName.getText() + "', '" + gender + "', '" + jTextField_PhoneNum.getText() + "', '" + jTextField_Country.getText() + "', '" +  
-               jTextField_Email.getText() + "', '" + birthdate + "')"; 
-        
-        
+            String query = "INSERT INTO `users` (`username`, `password`, `firstname`, `lastname`, `gender`, `phonenum`, `country`, `email`, `birthdate`) " +  
+                   "VALUES ('" + jTextField_Username.getText() + "', '" + new String(jPasswordField.getPassword()) + "', '" + jTextField_FirstName.getText() + "', '" +  
+                   jTextField_LastName.getText() + "', '" + gender + "', '" + jTextField_PhoneNum.getText() + "', '" + jTextField_Country.getText() + "', '" +  
+                   jTextField_Email.getText() + "', '" + birthdate + "')"; 
+
+            try (Connection conn = getConnection();
+                 Statement stmt = conn.createStatement()) {
+
+                stmt.executeUpdate(query);
+                System.out.println("Insertion successful");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle the exception appropriately
+            }
     }//GEN-LAST:event_jButton_InsertActionPerformedActionPerformed
 
     private void jButton_UpdateActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UpdateActionPerformedActionPerformed
+
         String gender = (jRadioButton_Male.isSelected()) ? "Male" : "Female";
-        
-         // Format the birthdate to match the database format (adjust the format as needed)
+    
+        // Format the birthdate to match the database format (adjust the format as needed)
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String birthdate = dateFormat.format(jDateChooser_BirthDate.getDate());
 
-        
         String query = "UPDATE `users` SET " +
                    "`username` = '" + jTextField_Username.getText() + "', " +
                    "`password` = '" + new String(jPasswordField.getPassword()) + "', " +
@@ -480,6 +521,16 @@ public class AccountManagement extends javax.swing.JFrame {
                    "`email` = '" + jTextField_Email.getText() + "', " +
                    "`birthdate` = '" + birthdate + "' " +
                    "WHERE `id` = " + jTextField_Id.getText();
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            stmt.executeUpdate(query);
+            System.out.println("Update successful");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
     }//GEN-LAST:event_jButton_UpdateActionPerformedActionPerformed
     
     
@@ -489,22 +540,44 @@ public class AccountManagement extends javax.swing.JFrame {
 
 
     private void jTable_Display_UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_Display_UsersMouseClicked
+
         // Display Selected Row in JTextFields
         int selectedRow = jTable_Display_Users.getSelectedRow();
         TableModel model = jTable_Display_Users.getModel();
-   
-        jTextField_Id.setText(model.getValueAt(selectedRow, 0).toString());
-        jTextField_FirstName.setText(model.getValueAt(selectedRow, 1).toString());
-        jTextField_LastName.setText(model.getValueAt(selectedRow, 2).toString());
-        jTextField_PhoneNum.setText(model.getValueAt(selectedRow, 4).toString());
-        jTextField_Country.setText(model.getValueAt(selectedRow, 5).toString());
-        jTextField_Email.setText(model.getValueAt(selectedRow, 7).toString());
-        jTextField_Username.setText(model.getValueAt(selectedRow, 8).toString());
-        jPasswordField.setText(model.getValueAt(selectedRow, 9).toString());
-        
+
+        // Retrieve the values from the model and handle null values
+        Object idObject = model.getValueAt(selectedRow, 0);
+        Object firstNameObject = model.getValueAt(selectedRow, 1);
+        Object lastNameObject = model.getValueAt(selectedRow, 2);
+        Object phoneNumObject = model.getValueAt(selectedRow, 4);
+        Object countryObject = model.getValueAt(selectedRow, 5);
+        Object emailObject = model.getValueAt(selectedRow, 7);
+        Object usernameObject = model.getValueAt(selectedRow, 8);
+        Object passwordObject = model.getValueAt(selectedRow, 9);
+
+        String id = (idObject != null) ? idObject.toString() : "";
+        String firstName = (firstNameObject != null) ? firstNameObject.toString() : "";
+        String lastName = (lastNameObject != null) ? lastNameObject.toString() : "";
+        String phoneNum = (phoneNumObject != null) ? phoneNumObject.toString() : "";
+        String country = (countryObject != null) ? countryObject.toString() : "";
+        String email = (emailObject != null) ? emailObject.toString() : "";
+        String username = (usernameObject != null) ? usernameObject.toString() : "";
+        String password = (passwordObject != null) ? passwordObject.toString() : "";
+
+        // Set the text fields with the retrieved values
+        jTextField_Id.setText(id);
+        jTextField_FirstName.setText(firstName);
+        jTextField_LastName.setText(lastName);
+        jTextField_PhoneNum.setText(phoneNum);
+        jTextField_Country.setText(country);
+        jTextField_Email.setText(email);
+        jTextField_Username.setText(username);
+        jPasswordField.setText(password);
+
         // Retrieve gender information from the model
-        String gender = model.getValueAt(selectedRow, genderColumnIndex).toString();
-        
+        Object genderObject = model.getValueAt(selectedRow, genderColumnIndex);
+        String gender = (genderObject != null) ? genderObject.toString() : "";
+
         // Set the appropriate radio button as selected
         if ("Male".equals(gender)) {
             jRadioButton_Male.setSelected(true);
@@ -517,15 +590,19 @@ public class AccountManagement extends javax.swing.JFrame {
             jRadioButton_Male.setSelected(false);
             jRadioButton_Female.setSelected(false);
         }
-        
-        String birthdateString = model.getValueAt(selectedRow, birthdateColumnIndex).toString();
+
+        // Retrieve birthdate information from the model
+        Object birthdateObject = model.getValueAt(selectedRow, birthdateColumnIndex);
+        String birthdateString = (birthdateObject != null) ? birthdateObject.toString() : "";
 
         // Convert the birthdateString to a Date
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Adjust the date format as needed
         Date birthdate = null;
 
         try {
-            birthdate = dateFormat.parse(birthdateString);
+            if (!birthdateString.isEmpty()) {
+                birthdate = dateFormat.parse(birthdateString);
+            }
         } catch (ParseException ex) {
             // Handle the parsing exception, e.g., show an error message or use a default date
             ex.printStackTrace();
@@ -539,6 +616,18 @@ public class AccountManagement extends javax.swing.JFrame {
         String query = "DELETE FROM `users` WHERE id = "+jTextField_Id.getText();
         executeSQLQuery(query, "Deleted");
     }//GEN-LAST:event_jButton_DeleteActionPerformedActionPerformed
+
+    private void jLabel13MinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MinMouseClicked
+            // Check for a mouse click event (e.g., a left mouse button click)
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            // Minimize the JFrame
+            setExtendedState(JFrame.ICONIFIED);
+        }
+    }//GEN-LAST:event_jLabel13MinMouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jPanel3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -562,6 +651,8 @@ public class AccountManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12_CloseButton;
+    private javax.swing.JLabel jLabel13Min;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
